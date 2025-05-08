@@ -35,7 +35,7 @@
 
 - name: Find next available Proxmox VMID
   ansible.builtin.set_fact:
-    new_vm_id: "{{ lookup('ansible.builtin.sequence', 'start=100 end=' ~ (used_ids | max + 2)) | difference(used_ids | map('int') | list) | first }}"
+    new_vm_id: new_vm_id: "{{ (query('sequence', 'start=101 end=' ~ (used_ids | max + 2)) | map('int') | list | difference(used_ids)) | min }}"
   vars:
     used_ids: "{{ proxmox_vm_ids.values() | map('int') | list }}"
   when: proxmox_vm_ids is defined
