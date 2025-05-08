@@ -1,3 +1,4 @@
 ---
 proxmox_autostart: true
 proxmox_discover_vms: true
+proxmox_api_user: "root@pam"
