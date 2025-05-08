@@ -1,0 +1,3 @@
+---
+proxmox_autostart: true
+proxmox_discover_vms: true

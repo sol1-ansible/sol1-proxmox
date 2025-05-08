@@ -1,0 +1,27 @@
+---
+- name: Debug
+  ansible.builtin.debug:
+    msg: "Proxmox VM IDs: {{ proxmox_vm_ids }}"
+
+- name: Create VM from a full clone of a template
+  community.general.proxmox_kvm:
+    node: "{{ proxmox_node | default(omit) }}"
+    api_host: "{{ proxmox_api_url | default(omit) }}"
+    api_user: "{{ proxmox_api_user | default(omit) }}"
+    api_password: "{{ proxmox_api_pass | default(omit) }}"
+    api_token_id: "{{ proxmox_api_token | default(omit) }}"
+    api_token_secret: "{{ proxmox_api_token_secret | default(omit) }}"
+    api_port: "{{ proxmox_api_port }}"
+    clone: "{{ template_name }}"
+    vmid: "{{ template_id }}"
+    name: "{{ new_vm_name }}"
+    newid: "{{ new_vm_id }}"
+    agent: 'enabled=1'
+    autostart: "{{ proxmox_autostart }}"
+    storage: "{{ proxmox_storage }}"
+    state: present
+    timeout: 120
+  when: not new_vm_name in proxmox_discovered_vms
+  register: clone_vm_job
+  async: 180
+  poll: 0

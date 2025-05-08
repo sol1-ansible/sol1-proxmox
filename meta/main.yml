@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  role_name: sol1-proxmox
+  author: Josh Matthews
+  company: Sol1 Pty Ltd
+  description: Build out and maintain Proxmox VMs and Clusters
+  license: MIT
+  min_ansible_version: 2.6.0
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+  galaxy_tags:
+    - system
+    - cluster
+    - proxmox
+    - kvm
+dependencies: []

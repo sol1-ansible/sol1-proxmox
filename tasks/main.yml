@@ -1,0 +1,4 @@
+---
+- name: Import VM Discovery Task
+  ansible.builtin.import_tasks: discovery.yml
+  when: proxmox_discover_vms | bool
