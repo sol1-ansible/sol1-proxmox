@@ -13,7 +13,7 @@
 
 - name: Collect Proxmox VM IDs to allow for proper iteration
   ansible.builtin.set_fact:
-    proxmox_vm_ids: "{{ proxmox_vm_ids | combine({item.name: item.vmid}) }}"
+    proxmox_vm_ids: "{{ proxmox_vm_ids | default({}) | combine({item.name: item.vmid}) }}"
   loop: "{{ proxmox_discovered_vms.proxmox_vms }}"
   when: not item.template and item.type == 'qemu'
 
@@ -23,7 +23,7 @@
 
 - name: Construct list of template IDs
   ansible.builtin.set_fact:
-    proxmox_template_ids: "{{ proxmox_template_ids | combine({item.name: item.vmid}) }}"
+    proxmox_template_ids: "{{ proxmox_template_ids | default({}) | combine({item.name: item.vmid}) }}"
   loop: "{{ proxmox_discovered_vms.proxmox_vms }}"
   when: item.template
 
