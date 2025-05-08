@@ -19,8 +19,6 @@
     timeout: 120
   when: not new_vm_name in proxmox_discovered_vms
   register: clone_vm_job
-  async: 180
-  poll: 0
 
 - name: Debug clone job
   ansible.builtin.debug:
