@@ -2,3 +2,7 @@
 - name: Import VM Discovery Task
   ansible.builtin.import_tasks: discovery.yml
   when: proxmox_discover_vms | bool
+
+#- name: Import VM Clone Template Task
+#  ansible.builtin.import_tasks: create_vm_from_template.yml
+#  when: proxmox_clone_template | bool

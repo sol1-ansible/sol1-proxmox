@@ -23,10 +23,24 @@
 
 - name: Construct list of template IDs
   ansible.builtin.set_fact:
-    proxmox_template_ids: "{{ proxmox_template_ids | default({}) | combine({item.name: item.vmid}) }}"
+    template_id: "{{ item.vmid }}"
   loop: "{{ proxmox_discovered_vms.proxmox_vms }}"
-  when: item.template
+  when:
+    - item.template
+    - item.name == template_name
 
 - name: Debug 3
   ansible.builtin.debug:
-    msg: "Proxmox Template IDs: {{ proxmox_template_ids }}"
+    msg: "Proxmox Template ID: {{ template_id }}"
+
+- name: Find next available Proxmox VMID
+  ansible.builtin.set_fact:
+    new_vm_id: "{{ lookup('ansible.builtin.sequence', 'start=100 end=' ~ (used_ids | max + 2)) | difference(used_ids | map('int') | list) | first }}"
+  vars:
+    used_ids: "{{ proxmox_vm_ids.values() | map('int') | list }}"
+  when: proxmox_vm_ids is defined
+
+- name: Debug 4
+  ansible.builtin.debug:
+    msg: "Proxmox New VM ID: {{ new_vm_id }}"
+  when: new_vm_id is defined
