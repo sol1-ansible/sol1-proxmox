@@ -33,14 +33,14 @@
   ansible.builtin.debug:
     msg: "Proxmox Template ID: {{ template_id }}"
 
-- name: Find next available Proxmox VMID
-  ansible.builtin.set_fact:
-    new_vm_id: "{{ (query('sequence', 'start=100 end=' ~ (used_ids | max + 2)) | map('int') | list | difference(used_ids)) | min }}"
-  vars:
-    used_ids: "{{ proxmox_vm_ids.values() | map('int') | list }}"
-  when: proxmox_vm_ids is defined
+#- name: Find next available Proxmox VMID
+#  ansible.builtin.set_fact:
+#    new_vm_id: "{{ (query('sequence', 'start=100 end=' ~ (used_ids | max + 2)) | map('int') | list | difference(used_ids)) | min }}"
+#  vars:
+#    used_ids: "{{ proxmox_vm_ids.values() | map('int') | list }}"
+#  when: proxmox_vm_ids is defined
 
-- name: Debug 4
-  ansible.builtin.debug:
-    msg: "Proxmox New VM ID: {{ new_vm_id }}"
-  when: new_vm_id is defined
+#- name: Debug 4
+#  ansible.builtin.debug:
+#    msg: "Proxmox New VM ID: {{ new_vm_id }}"
+#  when: new_vm_id is defined

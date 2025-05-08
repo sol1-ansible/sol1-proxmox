@@ -11,7 +11,7 @@
     clone: "{{ template_name }}"
     vmid: "{{ template_id }}"
     name: "{{ new_vm_name }}"
-    newid: "{{ new_vm_id }}"
+#    newid: "{{ new_vm_id }}"
     agent: 'enabled=1'
     autostart: "{{ proxmox_autostart }}"
     storage: "{{ proxmox_storage }}"
