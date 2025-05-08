@@ -15,7 +15,7 @@
     agent: 'enabled=1'
     autostart: "{{ proxmox_autostart }}"
     storage: "{{ proxmox_storage }}"
-    state: present
+    state: "{{ proxmox_vm_state }}"
     timeout: 120
   when: not new_vm_name in proxmox_discovered_vms
   register: clone_vm_job
